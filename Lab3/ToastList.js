@@ -1,4 +1,6 @@
-class ToastList {
+import {ToastElement} from './ToastElement.js';
+
+export class ToastList {
 
     constructor(){
         this.container = document.getElementById("toast-container");

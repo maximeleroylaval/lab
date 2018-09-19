@@ -1,3 +1,5 @@
+import {ToastList} from './ToastList.js';
+
 let list = new ToastList();
 
 let btnSuccess = document.getElementById('success');

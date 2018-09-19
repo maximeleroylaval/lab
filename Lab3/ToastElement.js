@@ -1,4 +1,4 @@
-class ToastElement {
+export class ToastElement {
 
     constructor(content) {
         this.content = content;
