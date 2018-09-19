@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        .container {
+        }
+
+        #Text {
+            max-width: 25%;
+        }
+
+        #Launch {
+            max-width: 25%;
+        }
+
+        .toast-element {
+            pointer-events: auto;
+            overflow: hidden;
+            margin: 0 0 6px;
+            padding: 15px 15px 15px 50px;
+            width: 300px;
+            z-index: 9999;
+            border-radius: 3px;
+            color: azure;
+            font-family: monospace;
+        }
+
+        .success {
+            background-color: darkseagreen;
+        }
+        
+        .error {
+            background-color: firebrick;
+        }
+
+        .info {
+            background-color: dodgerblue;
+        }
+
+
+        .toast-container {
+            position: fixed;
+            top: 0;
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <input id="text" placeholder="Your text here..."/>
+    <button id="success">Success!</button>
+    <button id="error">Error!</button>
+    <button id="info">Info!</button>
+</div>
+
+<div class="toast-container" id="toast-container">
+
+</div>
+
+
+<script type="application/ecmascript">
+
+    class ToastElement {
+
+        constructor(content) {
+            this.content = content;
+            this.element = document.createElement("div");
+            this.element.classList.add('toast-element');
+            this.element.appendChild(document.createTextNode(content));
+            setTimeout(ToastElement.clearElement, 3000);
+        }
+
+        static clearElement() {
+            let child = document.getElementById('toast-container').lastElementChild
+            if (child !== undefined)
+                document.getElementById('toast-container').removeChild(child);
+        };
+
+        setSuccess() {
+            this.element.classList.add('success');
+        }
+
+        setError() {
+            this.element.classList.add('error');
+        }
+
+        setInfo() {
+            this.element.classList.add('info');
+        }
+    }
+
+    class ToastList {
+
+        constructor(){
+            this.container = document.getElementById("toast-container");
+
+        }
+
+        createSuccessToast (content) {
+            let element = new ToastElement(content);
+            element.setSuccess();
+            this.container.insertBefore(element.element, this.container.firstElementChild);
+        };
+
+        createErrorToast (content) {
+            let element = new ToastElement(content);
+            element.setError();
+            this.container.insertBefore(element.element, this.container.firstElementChild);
+        };
+
+        createInfoToast (content) {
+            let element = new ToastElement(content);
+            element.setInfo();
+            this.container.insertBefore(element.element, this.container.firstElementChild);
+        };
+    }
+
+    let list = new ToastList();
+
+    let btnSuccess = document.getElementById('success');
+    let btnError = document.getElementById('error');
+    let btnInfo = document.getElementById('info');
+
+    let value = document.getElementById('text').value;
+
+    console.log('"' + value + '"');
+
+    btnSuccess.onclick = function() {
+        if (value !== undefined && value !== "")
+            list.createSuccessToast(value);
+    };
+
+    btnError.onclick = function() {
+        if (value !== undefined && value !== "")
+            list.createErrorToast(value);
+    };
+
+    btnInfo.onclick = function() {
+        if (value !== undefined && value !== "")
+            list.createInfoToast(value);
+    };
+
+</script>
+</body>
+</html>
