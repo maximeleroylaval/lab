@@ -1,64 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <style type="text/css">
-        .container {
-        }
-
-        #Text {
-            max-width: 25%;
-        }
-
-        #Launch {
-            max-width: 25%;
-        }
-
-        .toast-element {
-            pointer-events: auto;
-            overflow: hidden;
-            margin: 0 0 6px;
-            padding: 15px 15px 15px 50px;
-            width: 300px;
-            z-index: 9999;
-            border-radius: 3px;
-            color: azure;
-            font-family: monospace;
-        }
-
-        .success {
-            background-color: darkseagreen;
-        }
-        
-        .error {
-            background-color: firebrick;
-        }
-
-        .info {
-            background-color: dodgerblue;
-        }
-
-
-        .toast-container {
-            position: fixed;
-            top: 0;
-            right: 0;
-        }
-    </style>
+    <title>Notification</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<div class="container">
-    <input id="text" placeholder="Your text here..."/>
-    <button id="success">Success!</button>
-    <button id="error">Error!</button>
-    <button id="info">Info!</button>
-</div>
+    <div class="container">
+        <input id="text" placeholder="Your text here..." />
+        <button id="success">Success!</button>
+        <button id="error">Error!</button>
+        <button id="info">Info!</button>
+    </div>
 
-<div class="toast-container" id="toast-container">
+    <div class="toast-container" id="toast-container">
 
-</div>
+    </div>
 
-<script type="module" src="main.js"></script>
+    <script type="module" src="main.js"></script>
 </body>
+
 </html>

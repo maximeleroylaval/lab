@@ -1,0 +1,37 @@
+#Text {
+    max-width: 25%;
+}
+
+#Launch {
+    max-width: 25%;
+}
+
+.toast-element {
+    pointer-events: auto;
+    overflow: hidden;
+    margin: 0 0 6px;
+    padding: 15px 15px 15px 50px;
+    width: 300px;
+    z-index: 9999;
+    border-radius: 3px;
+    color: azure;
+    font-family: monospace;
+}
+
+.success {
+    background-color: darkseagreen;
+}
+
+.error {
+    background-color: firebrick;
+}
+
+.info {
+    background-color: dodgerblue;
+}
+
+.toast-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+}
