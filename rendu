@@ -1,0 +1,18 @@
+#!/bin/bash
+
+errmsg="You must specify a valid lab directory"
+
+if [ $# -eq 1 ]; then
+    lab=$1
+else
+    echo $errmsg
+    exit 1
+fi
+
+if [[ -d $lab ]]; then
+    mkdir -p "out"
+    zip -r "out/"$lab".zip" $lab "noms.txt" 2>&1> /dev/null
+else
+    echo $errmsg
+    exit 1
+fi
