@@ -1,32 +1,48 @@
 export class TodoElement {
 
     constructor(content) {
+        this.value = content;
+
+        this.element = document.createElement("li");
+        this.element.classList.add('list-group-item');
+        this.element.appendChild(this.createDiv());
+    }
+
+    getNode() {
+        return (this.element);
+    }
+
+    createDiv() {
         let mainDiv = document.createElement('div');
         mainDiv.classList.add('d-flex');
-        mainDiv.classList.add('justify-content-between');
 
+        let text = this.createText();
+        let options = this.createOptions();
+
+        mainDiv.appendChild(text);
+        mainDiv.appendChild(options);
+
+        return (mainDiv);
+    }
+
+    createText() {
         let textDiv = document.createElement('div');
-        textDiv.classList.add('justify-content-start');
-        textDiv.classList.add('align-self-center');
-        
+        textDiv.classList.add('col-sm-10');
+
         let textInput = document.createElement('input');
-        textInput.value = content;
+        textInput.classList.add('form-control');
+        textInput.type = 'text';
+        textInput.readOnly = true;
+        textInput.value = this.value;
+
+        this.textInput = textInput;
 
         textDiv.appendChild(textInput);
 
-        let optionsDiv = document.createElement('div');
-        optionsDiv.classList.add('justify-content-end');
+        return (textDiv);
+    }
 
-        let editButton = document.createElement('button');
-        editButton.classList.add('btn');
-        editButton.classList.add('btn-warning');
-        
-        let editImg = document.createElement('i');
-        editImg.classList.add('far');
-        editImg.classList.add('fa-edit');
-
-        editButton.appendChild(editImg);
-
+    createDelete() {
         let deleteButton = document.createElement('button');
         deleteButton.classList.add('btn');
         deleteButton.classList.add('btn-danger');
@@ -37,18 +53,36 @@ export class TodoElement {
 
         deleteButton.appendChild(deleteImg);
 
-        optionsDiv.appendChild(editButton);
-        optionsDiv.appendChild(deleteButton);
+        return (deleteButton);
+    }
 
-        mainDiv.appendChild(textDiv);
-        mainDiv.appendChild(optionsDiv);
+    createEdit() {
+        let editButton = document.createElement('button');
+        editButton.classList.add('btn');
+        editButton.classList.add('btn-warning');
 
-        this.element = document.createElement("li");
-        this.element.classList.add('list-group-item');
-        this.element.appendChild(mainDiv);
-        this.textInput = textInput;
-        this.editButton = editButton;
-        this.deleteButton = deleteButton;
+        let editImg = document.createElement('i');
+        editImg.classList.add('far');
+        editImg.classList.add('fa-edit');
+
+        editButton.appendChild(editImg);
+
+        return (editButton);
+    }
+
+    createOptions() {
+        let optionsDiv = document.createElement('div');
+        optionsDiv.classList.add('col-sm-2');
+        optionsDiv.classList.add('d-flex');
+        optionsDiv.classList.add('justify-content-around');
+
+        this.editButton = this.createEdit();
+        this.deleteButton = this.createDelete();
+
+        optionsDiv.appendChild(this.editButton);
+        optionsDiv.appendChild(this.deleteButton);
+
+        return (optionsDiv);
     }
 
     listen() {
@@ -57,14 +91,18 @@ export class TodoElement {
     }
 
     edit() {
-        
+        if (this.textInput.readOnly === true) {
+            this.textInput.readOnly = false;
+            this.editButton.firstChild.classList.remove('fa-edit');
+            this.editButton.firstChild.classList.add('fa-save');
+        } else {
+            this.textInput.readOnly = true;
+            this.editButton.firstChild.classList.remove('fa-save');
+            this.editButton.firstChild.classList.add('fa-edit');
+        }
     }
 
     delete() {
         this.destroy(this);
-    }
-
-    getNode() {
-        return (this.element);
     }
 }

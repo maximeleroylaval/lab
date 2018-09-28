@@ -1,8 +1,8 @@
-import {TodoElement} from './TodoElement.js';
+import { TodoElement } from './TodoElement.js';
 
 export class TodoList {
 
-    constructor(){
+    constructor() {
         this.container = document.getElementById("todo-list");
     }
 
