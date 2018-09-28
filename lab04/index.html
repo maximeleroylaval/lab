@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>ToDo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="resources/img/favicon.ico">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="resources/css/style.css">
+</head>
+
+<body>
+    <form class="form-inline">
+        <div class="input-group">
+            <input id="todo-new-input" type="text" class="form-control" placeholder="Enter task here...">
+            <div class="input-group-append">
+                <div class="input-group-text" id="basic-addon2">
+                    <button id="todo-new-add" type="button" class="btn btn-link">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <button id="todo-new-clear" type="button" class="btn btn-link">
+                        <i class="fas fa-ban"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <hr>
+
+    <ul class="list-group" id="todo-list">
+
+    </ul>
+
+    <script type="module" src="resources/src/main.js"></script>
+</body>
+
+</html>
