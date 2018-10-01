@@ -2,18 +2,33 @@ import { TodoElement } from './TodoElement.js';
 
 export class TodoList {
 
-    constructor() {
+    constructor(rmvFnc, updtFnc) {
         this.container = document.getElementById("todo-list");
+        this.rmvFnc = rmvFnc;
+        this.updtFnc = updtFnc;
     }
 
-    add(todo) {
-        let todoElement = new TodoElement(todo);
-        todoElement.destroy = this.remove.bind(this);
+    add(todo, id) {
+        let todoElement = new TodoElement(todo, id, this.remove.bind(this), this.update.bind(this));
         todoElement.listen();
         this.container.appendChild(todoElement.getNode());
     }
 
+    load(tasks) {
+        tasks.forEach(element => this.add(element.name, element.id));
+    }
+
     remove(todoElement) {
-        this.container.removeChild(todoElement.getNode());
+        this.rmvFnc(todoElement, () => {
+            this.container.removeChild(todoElement.getNode());
+        });
+    }
+
+    update(todoElement, callback) {
+        this.updtFnc(todoElement, callback);
+    }
+
+    clear(){
+        this.container.innerHTML = "";
     }
 }

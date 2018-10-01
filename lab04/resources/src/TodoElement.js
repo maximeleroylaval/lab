@@ -1,11 +1,14 @@
 export class TodoElement {
 
-    constructor(content) {
+    constructor(content, id, rmvFnc, updtFnc) {
         this.value = content;
+        this.id = id;
 
         this.element = document.createElement("li");
         this.element.classList.add('list-group-item');
         this.element.appendChild(this.createDiv());
+        this.destroy = rmvFnc;
+        this.update = updtFnc;
     }
 
     getNode() {
@@ -96,9 +99,12 @@ export class TodoElement {
             this.editButton.firstChild.classList.remove('fa-edit');
             this.editButton.firstChild.classList.add('fa-save');
         } else {
-            this.textInput.readOnly = true;
-            this.editButton.firstChild.classList.remove('fa-save');
-            this.editButton.firstChild.classList.add('fa-edit');
+            this.update(this, () => {
+                this.value = this.textInput.value;
+                this.textInput.readOnly = true;
+                this.editButton.firstChild.classList.remove('fa-save');
+                this.editButton.firstChild.classList.add('fa-edit');
+            });
         }
     }
 
