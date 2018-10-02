@@ -9,7 +9,7 @@ export class TodoList {
     }
 
     add(todo, id) {
-        let todoElement = new TodoElement(todo, id, this.remove.bind(this), this.update.bind(this));
+        let todoElement = new TodoElement(todo, id, (todoElement) => this.remove(todoElement), (todoElement, callback) => this.update(todoElement, callback));
         todoElement.listen();
         this.container.appendChild(todoElement.getNode());
     }

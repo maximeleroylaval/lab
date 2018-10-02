@@ -8,7 +8,7 @@ export class TodoControler {
         this.textInput = document.getElementById("todo-new-input");
         this.buttonAdd = document.getElementById("todo-new-add");
         this.buttonClear = document.getElementById("todo-new-clear");
-        this.todoList = new TodoList(this.remove.bind(this), this.update.bind(this));
+        this.todoList = new TodoList((todoElement, callback) => this.remove(todoElement, callback), (todoElement, callback) => this.update(todoElement, callback));
     }
 
     listen() {
@@ -58,7 +58,7 @@ export class TodoControler {
         this.todoList.clear();
         this.userId = userId;
         let reqManager = new Request();
-        reqManager.get('/' + this.userId + '/tasks').then(response => {console.log(response);this.todoList.load(response["tasks"])}).catch(err => console.error(err));
+        reqManager.get('/' + this.userId + '/tasks').then(response => {this.todoList.load(response["tasks"])}).catch(err => console.error(err));
     }
 
 }
