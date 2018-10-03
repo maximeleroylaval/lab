@@ -17,13 +17,12 @@ export class TodoControler {
     }
 
     add() {
-        let reqManager = new Request();
         let todo = this.textInput.value;
         todo = todo.trim();
         if (todo === undefined || todo === "")
             alert("Task definition cannot be empty");
         else {
-            reqManager.post('/' + this.userId + '/tasks', {name: todo})
+            Request.post('/' + this.userId + '/tasks', {name: todo})
                 .catch(err => {
                     alert(err);
                     User.load(this);
@@ -41,24 +40,21 @@ export class TodoControler {
 
 
     remove(todoElement, callback){
-        let reqManager = new Request();
-        reqManager.remove('/' + this.userId + '/tasks/' + todoElement.id).catch(error => alert(error)).then(callback);
+        Request.remove('/' + this.userId + '/tasks/' + todoElement.id).catch(error => alert(error)).then(callback);
     }
 
     update(todoElement, callback){
         if (todoElement.textInput.value === undefined|| todoElement.textInput.value === "") {
             alert("Task definition cannot be empty");
         } else {
-            let reqManager = new Request();
-            reqManager.put('/' + this.userId + '/tasks/' + todoElement.id, {name: todoElement.textInput.value}).catch(error => {alert(error); todoElement.textInput.value = todoElement.value}).then(callback());
+            Request.put('/' + this.userId + '/tasks/' + todoElement.id, {name: todoElement.textInput.value}).catch(error => {alert(error); todoElement.textInput.value = todoElement.value}).then(callback());
         }
     }
 
     load(userId) {
         this.todoList.clear();
         this.userId = userId;
-        let reqManager = new Request();
-        reqManager.get('/' + this.userId + '/tasks').then(response => {this.todoList.load(response["tasks"])}).catch(err => console.error(err));
+        Request.get('/' + this.userId + '/tasks').then(response => {this.todoList.load(response["tasks"])}).catch(err => console.error(err));
     }
 
 }

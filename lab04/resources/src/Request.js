@@ -1,54 +1,53 @@
 export class Request {
 
-    constructor() {
-        this.baseUrl = "https://glo3102lab4.herokuapp.com";
-        this.mode = "cors";
-        this.cache = "no-cache";
-        this.headers = {
-            "Content-Type" : "application/json; charset=utf-8"
-        };
-        this.referrer = "no-referrer";
-    }
-
-    post(url, data) {
-       return fetch(this.baseUrl + url, {
+    static post(url, data) {
+       return fetch(Request.baseUrl + url, {
             method: "POST",
-            mode: this.mode,
-            cache: this.cache,
-            headers: this.headers,
-            referrer: this.referrer,
+            mode: Request.mode,
+            cache: Request.cache,
+            headers: Request.headers,
+            referrer: Request.referrer,
             body: JSON.stringify(data),
         }).then(res => res.json())
     }
 
-    get(url) {
-        return fetch(this.baseUrl + url, {
+    static get(url) {
+        return fetch(Request.baseUrl + url, {
             method: "GET",
-            mode: this.mode,
-            cache: this.cache,
-            headers: this.headers,
-            referrer: this.referrer,
+            mode: Request.mode,
+            cache: Request.cache,
+            headers: Request.headers,
+            referrer: Request.referrer,
         }).then(res => res.json())
     }
 
-    remove(url) {
-            return fetch(this.baseUrl + url, {
+    static remove(url) {
+            return fetch(Request.baseUrl + url, {
                 method: "DELETE",
-                mode: this.mode,
-                cache: this.cache,
-                headers: this.headers,
-                referrer: this.referrer,
+                mode: Request.mode,
+                cache: Request.cache,
+                headers: Request.headers,
+                referrer: Request.referrer,
             });
         }
 
-    put(url, data) {
-        return fetch(this.baseUrl + url, {
+    static put(url, data) {
+        return fetch(Request.baseUrl + url, {
             method: "PUT",
-            mode: this.mode,
-            cache: this.cache,
-            headers: this.headers,
-            referrer: this.referrer,
+            mode: Request.mode,
+            cache: Request.cache,
+            headers: Request.headers,
+            referrer: Request.referrer,
             body: JSON.stringify(data),
         });
     }
 }
+
+//static var
+Request.baseUrl = "https://glo3102lab4.herokuapp.com";
+Request.mode = "cors";
+Request.cache = "no-cache";
+Request.headers = {
+    "Content-Type" : "application/json; charset=utf-8"
+};
+Request.referrer = "no-referrer";

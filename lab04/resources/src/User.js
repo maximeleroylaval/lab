@@ -5,9 +5,7 @@ export class User {
 
     static load(todos) {
         if (Cookie.get("user_id") === "") {
-            let req = new Request();
-
-            req.post('/users', {}).then(response => {Cookie.set("user_id", response.id); todos.load(response.id)})
+            Request.post('/users', {}).then(response => {Cookie.set("user_id", response.id); todos.load(response.id)})
                 .catch(error => console.error('Error:', error));
         } else {
             let userId = Cookie.get("user_id");

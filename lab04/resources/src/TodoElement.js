@@ -45,7 +45,7 @@ export class TodoElement {
         return (textDiv);
     }
 
-    createDelete() {
+    static createDelete() {
         let deleteButton = document.createElement('button');
         deleteButton.classList.add('btn');
         deleteButton.classList.add('btn-danger');
@@ -59,7 +59,7 @@ export class TodoElement {
         return (deleteButton);
     }
 
-    createEdit() {
+    static createEdit() {
         let editButton = document.createElement('button');
         editButton.classList.add('btn');
         editButton.classList.add('btn-warning');
@@ -79,8 +79,8 @@ export class TodoElement {
         optionsDiv.classList.add('d-flex');
         optionsDiv.classList.add('justify-content-around');
 
-        this.editButton = this.createEdit();
-        this.deleteButton = this.createDelete();
+        this.editButton = TodoElement.createEdit();
+        this.deleteButton = TodoElement.createDelete();
 
         optionsDiv.appendChild(this.editButton);
         optionsDiv.appendChild(this.deleteButton);
@@ -90,7 +90,7 @@ export class TodoElement {
 
     listen() {
         this.editButton.addEventListener('click', evt => this.edit(evt));
-        this.deleteButton.addEventListener('click', evt => this.delete(evt));
+        this.deleteButton.addEventListener('click', evt => this.remove(evt));
     }
 
     edit() {
@@ -108,7 +108,7 @@ export class TodoElement {
         }
     }
 
-    delete() {
+    remove() {
         this.destroy(this);
     }
 }
