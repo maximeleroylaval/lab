@@ -1,5 +1,7 @@
 import { Request } from './Request.js';
 import { Cookie } from './Cookie.js';
+import { TaskModel } from './TaskModel.js';
+import { UserModel } from './UserModel.js';
 
 new Vue({
     el: '#app',
@@ -20,31 +22,27 @@ new Vue({
         },
 
         loadUser() {
-            if (Cookie.get("user_id") === "") {
+            if (Cookie.get("user") === "") {
                 Request.post('/users', {})
                     .then(response => {
-                        Cookie.set("user_id", response.id);
-                        this.userId = userId;
+                        this.user = new UserModel(response);
+                        Cookie.set("user", JSON.stringify(this.user));
                         this.loadTodos();
                     })
                     .catch(error => console.error('Error:', error));
             } else {
-                let userId = Cookie.get("user_id");
-                this.userId = userId;
+                this.user = JSON.parse(Cookie.get("user"));
                 this.loadTodos();
             }
         },
 
         loadTodos() {
-            if (this.userId === '') {
+            if (this.user.id === '') {
                 this.loadUser();
             } else {
-                Request.get('/' + this.userId + '/tasks')
+                Request.get('/' + this.user.id + '/tasks')
                 .then(response => {
-                    response["tasks"].forEach(element => this.todoList.push({
-                        "name" : element.name, 
-                        "id" : element.id
-                    }));
+                    response["tasks"].forEach(element => this.todoList.push(new TaskModel(element)));
                 })
                 .catch(err => console.error(err));
             }
@@ -55,35 +53,29 @@ new Vue({
             if (todo === undefined || todo === "")
                 alert("Task definition cannot be empty");
             else {
-                Request.post('/' + this.userId + '/tasks', { name: todo })
+                Request.post('/' + this.user.id + '/tasks', { name: todo })
                     .catch(err => {
                         alert(err);
                         User.load(this);
-                    }).then(response => this.todoList.push({
-                        "name": response["name"],
-                        "id": response["id"]
-                    }));
+                    }).then(response => this.todoList.push(new TaskModel(response)));
             }
         },
 
         editTodo(todo) {
-            if (todo.name === undefined|| todo.name === "") {
+            if (todo.name === undefined || todo.name === "") {
                 alert("Task definition cannot be empty");
             } else {
-                Request.put('/' + this.userId + '/tasks/' + todo.id, {
+                Request.put('/' + this.user.id + '/tasks/' + todo.id, {
                     name: todo.name
                 })
                     .catch(error => {
                         alert(error);
-                    })
-                    .then(
-                        
-                    );
+                    });
             }
         },
 
         deleteTodo(todo) {
-            Request.remove('/' + this.userId + '/tasks/' + todo.id)
+            Request.remove('/' + this.user.id + '/tasks/' + todo.id)
                 .catch(error => alert(error))
                 .then(
                     this.todoList.splice(this.todoList.indexOf(todo), 1)
