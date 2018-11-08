@@ -1,0 +1,16 @@
+{
+  "name": "lab07",
+  "version": "1.0.0",
+  "description": "RESTful API for lab05",
+  "main": "app.js",
+  "scripts": {
+    "test": "tests"
+  },
+  "author": "Maxime Leroy / Henri Longle",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "mongoose": "^5.3.10"
+  }
+}
