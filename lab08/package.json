@@ -1,7 +1,7 @@
 {
-  "name": "lab07",
+  "name": "lab08",
   "version": "1.0.0",
-  "description": "RESTful API for lab05",
+  "description": "laboratory 8 for glo",
   "main": "app.js",
   "scripts": {
     "test": "tests",
@@ -10,8 +10,12 @@
   "author": "Maxime Leroy / Henri Longle",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^3.0.2",
     "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
     "express": "^4.16.4",
-    "mongoose": "^5.3.10"
+    "js-cookie": "^2.2.0",
+    "jsonwebtoken": "^8.3.0",
+    "mongoose": "^5.3.12"
   }
 }
