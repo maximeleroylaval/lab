@@ -32,6 +32,11 @@ app.use(cookieParser());
 
 app.use('/', routes);
 
+app.get('/', function(req, res) {
+    res.redirect('/login');
+});
+
+
 let port = 443;
 
 app.listen(port, () => {

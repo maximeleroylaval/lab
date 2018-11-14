@@ -18,15 +18,23 @@ exports.post = function (req, res, next) {
                 bcrypt.compare(req.body.password, user.password, function(err, isOk) {
                     if (isOk) {
                         jwt.sign({user}, appkey, { expiresIn: 60 * 60 }, (err, token) => {
-                            res.json({token});
+                            res.cookie('auth_token', token);
+                            res.redirect('/userprofile');
                         });
                     } else {
                         res.sendStatus(401);
-                    } 
-                });    
+                    }
+                });
             }
         });
     }
+};
+
+exports.renderHtml = function(req, res, next) {
+    if (req.cookies['auth_token'])
+        res.redirect('/userprofile');
+    else
+        res.sendFile('login.html', {root: './public'});
 };
 
 exports.checkAuth = function (req, res, next) {
@@ -40,6 +48,6 @@ exports.checkAuth = function (req, res, next) {
             }
         });
     } else {
-        res.sendStatus(401);
+        res.redirect('/login');
     }
 };
