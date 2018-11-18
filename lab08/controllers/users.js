@@ -2,6 +2,10 @@ const bcrypt = require('bcrypt');
 
 const User = require('../models/user')
 
+exports.get = function (req, res, next) {
+    res.sendFile('users.html', {root: './public'});
+};
+
 exports.post = function (req, res, next) {
     if (req.body.user === undefined || req.body.password === undefined) {
         res.sendStatus(401);
