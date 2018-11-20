@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Chat</title>
+    <link rel="stylesheet" href="chat.css">
+</head>
+
+<body>
+    <form class="username" id="change">
+        <input class="user" id="username" /><button>Change</button>
+    </form>
+    <ul id="messages"></ul>
+    <form class="message" id="send" action="">
+        <input class="msg" id="message" autocomplete="off" /><button>Send</button>
+    </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script>
+        const socket = io();
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get('user');
+
+        document.getElementById('username').value = username;
+
+        socket.emit('username connect', username);
+
+        socket.on('message', msg => {
+            const message = document.createElement('li');
+            message.innerHTML = msg;
+            document.getElementById('messages').append(message);
+            window.scrollTo(0, document.body.scrollHeight);
+        });
+
+        document.getElementById('send').addEventListener('submit', event => {
+            event.preventDefault();
+            const message = document.getElementById('message');
+            socket.emit('message', message.value);
+            message.value = '';
+        });
+
+        document.getElementById('change').addEventListener('submit', event => {
+            event.preventDefault();
+            const username = document.getElementById('username');
+            socket.emit('username change', username.value);
+        });
+
+    </script>
+</body>
+
+</html>
