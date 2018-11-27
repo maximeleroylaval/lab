@@ -18,7 +18,7 @@ body {
 }
 
 .username {
-    background: #000;
+    background: #1b4bba;
     padding: 3px;
     text-align: center;
     top: 0;
@@ -43,7 +43,7 @@ body {
 
 form button {
     width: 9%;
-    background: rgb(130, 224, 255);
+    background: rgb(17, 224, 34);
     border: none;
     padding: 10px;
 }
