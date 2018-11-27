@@ -1,10 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const user = require('./routes/user');
-const task = require('./routes/task');
-
 const app = express();
+
+const routes = require('./routes/routes');
 
 const mongoose = require('mongoose');
 
@@ -17,6 +16,8 @@ let db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
+app.use(express.static(__dirname + '/public'));
+
 app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({extended: false}));
@@ -28,9 +29,7 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.use('/users', user);
-
-app.use('/:id_user/tasks', task);
+app.use('/', routes);
 
 let port = 1337;
 
